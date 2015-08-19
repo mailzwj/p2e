@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>一张图片转换成一个HTML元素</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    font: 14px/1.5 '微软雅黑', Arial, sans-serif;
+}
+
+.top-bar {
+    padding: 20px 0 20px 40px;
+    background-color: #000;
+    color: #fff;
+}
+
+.top-bar .select {
+    height: 32px;
+    width: 100px;
+}
+
+.wrap {
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.canvas-wrap,
+.ele-wrap {
+    width: 398px;
+    height: 398px;
+    border: 1px dashed #ddd;
+    overflow: hidden;
+}
+
+.canvas-wrap {
+    float: left;
+    text-align: center;
+}
+
+.ele-wrap {
+    float: right;
+}
+
+.convert-btn {
+    margin: 0 410px;
+    padding-top: 180px;
+    height: 220px;
+    text-align: center;
+}
+
+.convert-btn .btn {
+    padding: 0 30px;
+    height: 40px;
+    line-height: 40px;
+    border: 0;
+    background-color: #39f;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 18px;
+    outline: none;
+    cursor: pointer;
+}
+
+.convert-btn .btn:hover {
+    background-color: #28e;
+}
+
+.footer {
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-size: 12px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    color: #666;
+}
+
+.footer a {
+    color: #666;
+}
+
+.footer a:hover {
+    color: #333;
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+    选择图片：
+    <select id="J_PicSelect" class="select">
+        <option value="imgs/pixel.png">pixel.png</option>
+        <option value="imgs/heart.png">heart.png</option>
+        <option value="imgs/lufei.png">lufei.png</option>
+        <option value="imgs/katong.png">katong.png</option>
+        <option value="imgs/haizeiwang.png">haizeiwang.png</option>
+    </select>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    选择等级：
+    <select id="J_LevelSelect" class="select">
+        <option value="10">10</option>
+        <option value="30">30</option>
+        <option value="20">20</option>
+        <option value="9">9</option>
+        <option value="8">8</option>
+        <option value="7">7</option>
+        <option value="6" selected>6</option>
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+    </select>
+</div>
+<div class="wrap">
+    <div class="canvas-wrap">
+        <canvas id="J_ReadImage" width="400" height="600"></canvas>
+    </div>
+    <div id="J_EleWrap" class="ele-wrap"></div>
+    <div class="convert-btn">
+        <input type="button" value="点击转换&nbsp;&gt;" class="btn" id="J_GetHtml" disabled>
+    </div>
+</div>
+<div class="footer">
+    &copy; CopyRight <a href="http://www.seejs.com">百码山庄</a>
+</div>
+<script src="src/p2e.js"></script>
+<script>
+(function(){
+    var p2e = new P2E({
+        size: 6,
+        attrs: {
+            id: 'J_Pixel'
+        }
+    }),
+    gh = document.getElementById('J_GetHtml'),
+    wrap = document.getElementById('J_EleWrap'),
+    selPic = document.getElementById('J_PicSelect'),
+    selLev = document.getElementById('J_LevelSelect');
+    p2e.drawImage('imgs/pixel.png', function(){
+        gh.removeAttribute('disabled');
+    });
+
+    selPic.onchange = function() {
+        gh.setAttribute('disabled', 'disabled');
+        p2e.drawImage(this.value, function(){
+            gh.removeAttribute('disabled');
+        });
+    };
+
+    selLev.onchange = function() {
+        p2e.set('size', +this.value);
+    };
+
+    gh.onclick = function() {
+        wrap.innerHTML = '';
+        wrap.appendChild(p2e.getHtml());
+    };
+})();
+</script>
+</body>
+</html>
