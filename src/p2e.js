@@ -1,6 +1,7 @@
 (function(window, undefined){
     function P2E(cfg) {
         cfg.size = cfg.size || 1;
+        cfg.space = cfg.space || 1;
         cfg.attrs = cfg.attrs || {};
         cfg.range = {width: 400, height: 600};
 
@@ -18,6 +19,7 @@
         _parseCSSStr: function(clsName, arr) {
             var _this = this,
                 size = _this.get('size'),
+                space = _this.get('space'),
                 cvs = _this.canvas,
                 w = cvs.width,
                 h = cvs.height,
@@ -25,7 +27,7 @@
                 bsd = '-webkit-box-shadow:{{bsdStr}};box-shadow:{{bsdStr}};',
                 bsdArr = [],
                 bsdStr = '',
-                cssSize = size <= 1 ? 1 : size - 1;
+                cssSize = size <= space ? size : size - space;
             for (var b = 0, al = arr.length; b < al; b++) {
                 if (arr[b].color.a !== 0) {
                     bsdArr.push(arr[b].x + 'px ' + arr[b].y + 'px ' + 'rgba(' + arr[b].color.r + ', ' + arr[b].color.g + ', ' + arr[b].color.b + ', ' + arr[b].color.a + ')');
@@ -40,6 +42,14 @@
             return str;
         },
         init: function() {
+            var size = this.get('size'),
+                space = this.get('space');
+            if (size <= 0) {
+                this.set('size', 1);
+            }
+            if (space < 0) {
+                this.set('space', 0);
+            }
             this.canvas = document.getElementById('J_ReadImage');
         },
         drawImage: function(data, callback) {

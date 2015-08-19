@@ -112,6 +112,16 @@
         <option value="2">2</option>
         <option value="1">1</option>
     </select>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    选择间隙：
+    <select id="J_SpaceSelect" class="select">
+        <option value="0">0</option>
+        <option value="1" selected="">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
 </div>
 <div class="wrap">
     <div class="canvas-wrap">
@@ -130,6 +140,7 @@
 (function(){
     var p2e = new P2E({
         size: 6,
+        space: 1,
         attrs: {
             id: 'J_Pixel'
         }
@@ -137,7 +148,8 @@
     gh = document.getElementById('J_GetHtml'),
     wrap = document.getElementById('J_EleWrap'),
     selPic = document.getElementById('J_PicSelect'),
-    selLev = document.getElementById('J_LevelSelect');
+    selLev = document.getElementById('J_LevelSelect'),
+    selSpa = document.getElementById('J_SpaceSelect');
     p2e.drawImage('imgs/pixel.png', function(){
         gh.removeAttribute('disabled');
     });
@@ -151,6 +163,10 @@
 
     selLev.onchange = function() {
         p2e.set('size', +this.value);
+    };
+
+    selSpa.onchange = function() {
+        p2e.set('space', +this.value);
     };
 
     gh.onclick = function() {
