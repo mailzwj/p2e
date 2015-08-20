@@ -122,6 +122,21 @@
         <option value="4">4</option>
         <option value="5">5</option>
     </select>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    选择圆角：
+    <select id="J_RadiusSelect" class="select">
+        <option value="0" selected="">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
 </div>
 <div class="wrap">
     <div class="canvas-wrap">
@@ -149,7 +164,8 @@
     wrap = document.getElementById('J_EleWrap'),
     selPic = document.getElementById('J_PicSelect'),
     selLev = document.getElementById('J_LevelSelect'),
-    selSpa = document.getElementById('J_SpaceSelect');
+    selSpa = document.getElementById('J_SpaceSelect'),
+    selRad = document.getElementById('J_RadiusSelect');
     p2e.drawImage('imgs/pixel.png', function(){
         gh.removeAttribute('disabled');
     });
@@ -167,6 +183,10 @@
 
     selSpa.onchange = function() {
         p2e.set('space', +this.value);
+    };
+
+    selRad.onchange = function() {
+        p2e.set('radius', +this.value);
     };
 
     gh.onclick = function() {

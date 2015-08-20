@@ -11,6 +11,8 @@
 
 * `size`: 整数，色块儿尺寸，单位为像素
 * `attrs`: 对象，生成html元素的属性
+* `space`: 整数，生成html元素色块间隙，默认1
+* `radius`: 整数，生成html元素色块圆角大小，默认undefined
 
 ### 实例方法
 

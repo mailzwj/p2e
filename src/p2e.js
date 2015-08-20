@@ -20,14 +20,18 @@
             var _this = this,
                 size = _this.get('size'),
                 space = _this.get('space'),
+                radius = _this.get('radius'),
                 cvs = _this.canvas,
                 w = cvs.width,
                 h = cvs.height,
                 str = '',
-                bsd = '-webkit-box-shadow:{{bsdStr}};box-shadow:{{bsdStr}};',
+                bsd = 'box-shadow:{{bsdStr}};',
                 bsdArr = [],
                 bsdStr = '',
                 cssSize = size <= space ? size : size - space;
+            if (typeof radius === 'number' && radius >= 0) {
+                bsd += 'border-radius:' + radius + 'px';
+            }
             for (var b = 0, al = arr.length; b < al; b++) {
                 if (arr[b].color.a !== 0) {
                     bsdArr.push(arr[b].x + 'px ' + arr[b].y + 'px ' + 'rgba(' + arr[b].color.r + ', ' + arr[b].color.g + ', ' + arr[b].color.b + ', ' + arr[b].color.a + ')');
