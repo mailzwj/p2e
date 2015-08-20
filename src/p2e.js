@@ -1,4 +1,7 @@
 (function(window, undefined){
+    
+    var _globalId = 1;
+    
     function P2E(cfg) {
         cfg.size = cfg.size || 1;
         cfg.space = cfg.space || 1;
@@ -47,14 +50,24 @@
         },
         init: function() {
             var size = this.get('size'),
-                space = this.get('space');
+                space = this.get('space'),
+                cvs = document.createElement('canvas');
             if (size <= 0) {
                 this.set('size', 1);
             }
             if (space < 0) {
                 this.set('space', 0);
             }
-            this.canvas = document.getElementById('J_ReadImage');
+            cvs.setAttribute('id', 'J_ReadImage_' + _globalId);
+            _globalId++;
+            cvs.width = 400;
+            cvs.height = 400;
+            cvs.style.position = 'absolute';
+            cvs.style.left = '-9999px';
+            cvs.style.top = '-9999px';
+            cvs.style.zIndex = -1;
+            document.getElementsByTagName('body')[0].appendChild(cvs);
+            this.canvas = cvs;
         },
         drawImage: function(data, callback) {
             var _this = this,
