@@ -19,6 +19,7 @@
 .top-bar .select {
     height: 32px;
     width: 100px;
+    border-radius: 4px;
 }
 
 .wrap {
@@ -140,7 +141,7 @@
 </div>
 <div class="wrap">
     <div class="canvas-wrap">
-        <canvas id="J_ReadImage" width="400" height="600"></canvas>
+        <img id="J_ImgView" src="imgs/pixel.png">
     </div>
     <div id="J_EleWrap" class="ele-wrap"></div>
     <div class="convert-btn">
@@ -160,21 +161,17 @@
             id: 'J_Pixel'
         }
     }),
+    iv = document.getElementById('J_ImgView'),
     gh = document.getElementById('J_GetHtml'),
     wrap = document.getElementById('J_EleWrap'),
     selPic = document.getElementById('J_PicSelect'),
     selLev = document.getElementById('J_LevelSelect'),
     selSpa = document.getElementById('J_SpaceSelect'),
     selRad = document.getElementById('J_RadiusSelect');
-    p2e.drawImage('imgs/pixel.png', function(){
-        gh.removeAttribute('disabled');
-    });
 
     selPic.onchange = function() {
-        gh.setAttribute('disabled', 'disabled');
-        p2e.drawImage(this.value, function(){
-            gh.removeAttribute('disabled');
-        });
+        // gh.setAttribute('disabled', 'disabled');
+        iv.src = this.value;
     };
 
     selLev.onchange = function() {
@@ -191,7 +188,9 @@
 
     gh.onclick = function() {
         wrap.innerHTML = '';
-        wrap.appendChild(p2e.getHtml());
+        p2e.drawImage(iv, function(){
+            wrap.appendChild(p2e.getHtml());
+        });
     };
 })();
 </script>
